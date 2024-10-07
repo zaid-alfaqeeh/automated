@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trigger Python Script</title>
+</head>
+<body>
+    <h1>Course Section Changer</h1>
+    <button id="start-script">Run Script</button>
+    <p id="output"></p> <!-- This will display the result of the script -->
+
+    <script>
+        document.getElementById("start-script").addEventListener("click", async () => {
+            try {
+                const response = await fetch("http://localhost:5000/start-script", {
+                    method: "GET",
+                });
+
+                if (response.ok) {
+                    const data = await response.text();  // Fetch the text response from the server
+                    document.getElementById("output").innerText = data;  // Display the result in the "output" element
+                } else {
+                    document.getElementById("output").innerText = "Error: Could not run script";
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("output").innerText = "Error occurred: " + error.message;
+            }
+        });
+    </script>
+</body>
+</html>
